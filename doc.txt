@@ -1,0 +1,3 @@
+1. npm i typescript @types/node ts-node --save-dev
+
+2. npx tsc --init      
