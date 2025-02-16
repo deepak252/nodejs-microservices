@@ -6,3 +6,6 @@
     npm i -D eslint @eslint/js typescript typescript-eslint globals eslint-plugin-prettier eslint-config-prettier
 
 3. npm i cors dotenv express express-http-proxy helmet ioredis jsonwebtoken winston
+3. npm i cors dotenv express express-rate-limit helmet ioredis jsonwebtoken winston mongoose rate-limit-redis bcryptjs
+
+4. npm i -D @types/express @types/winston
