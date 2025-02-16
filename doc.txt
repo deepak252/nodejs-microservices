@@ -1,3 +1,8 @@
 1. npm i typescript @types/node ts-node --save-dev
 
 2. npx tsc --init      
+
+3. Eslint (https://typescript-eslint.io/getting-started), Prettier setup
+    npm i -D eslint @eslint/js typescript typescript-eslint globals eslint-plugin-prettier eslint-config-prettier
+
+3. npm i cors dotenv express express-http-proxy helmet ioredis jsonwebtoken winston
