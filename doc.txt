@@ -1,3 +1,6 @@
+Naming Conventions: 
+    https://github.com/airbnb/javascript?tab=readme-ov-file#naming-conventions
+
 1. npm i typescript @types/node ts-node --save-dev
 
 2. npx tsc --init      
