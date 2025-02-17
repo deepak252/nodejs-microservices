@@ -4,8 +4,11 @@ export interface IUser {
   password: string
   createdAt: Date
   updatedAt: Date
+  refreshToken?: string
 }
 
 export interface IUserMethods {
   comparePassword(password: string): Promise<boolean>
+  generateAccessToken(): string
+  generateRefreshToken(): string
 }

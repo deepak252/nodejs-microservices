@@ -3,7 +3,9 @@ class ApiError extends Error {
   constructor(message = 'Bad Request', statusCode = 400, stack?: string) {
     super(message)
     this.statusCode = statusCode
-    this.stack = stack
+    if (stack) {
+      this.stack = stack
+    }
   }
 }
 
