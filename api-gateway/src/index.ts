@@ -1,1 +1,14 @@
-console.log('hello')
+import { createServer } from 'http'
+import { SERVER_PORT } from './config/environment.js'
+import app from './app.js'
+import logger from './utils/logger.js'
+
+const httpServer = createServer(app)
+
+httpServer.listen(SERVER_PORT, () => {
+  logger.info(`Server is running on port : ${SERVER_PORT}`)
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at', promise, 'reason:', reason)
+})
