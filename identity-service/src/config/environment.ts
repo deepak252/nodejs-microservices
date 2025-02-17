@@ -3,6 +3,7 @@ dotenv.config()
 
 export const {
   NODE_ENV = 'development',
+  REDIS_URL = '',
   SERVER_PORT = 3001,
   COOKIE_SECRET = 'SECRET',
   MONGO_URI,

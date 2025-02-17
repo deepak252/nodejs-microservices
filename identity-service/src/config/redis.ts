@@ -1,18 +1,7 @@
 import { Redis } from 'ioredis'
-import { REDIS_PASSWORD, REDIS_PORT, REDIS_URI } from './environment.js'
+import { REDIS_URL } from './environment.js'
 
-const redisClient = new Redis({
-  host: REDIS_URI,
-  port: Number(REDIS_PORT),
-  password: REDIS_PASSWORD
-})
-
-const pubClient = new Redis({
-  host: REDIS_URI,
-  port: Number(REDIS_PORT),
-  password: REDIS_PASSWORD
-})
-const subClient = pubClient.duplicate()
+const redisClient = new Redis(REDIS_URL)
 
 redisClient.on('connect', () => {
   console.log('Connected to Redis!')
@@ -26,4 +15,4 @@ redisClient.on('close', () => {
   console.error('Redis connection closed')
 })
 
-export { redisClient, pubClient, subClient }
+export { redisClient }

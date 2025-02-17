@@ -2,7 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import router from './routes/index.js'
-import { ApiResponse } from './utils/ApiResponse.js'
+import { rateLimiter, sensitiveRateLimiter } from './middlewares/rateLimiter.js'
+import { ApiResponse, ResponseFailure } from './utils/ApiResponse.js'
 import { errorHandler } from './middlewares/errorHandler.js'
 import logger from './utils/logger.js'
 
@@ -20,9 +21,20 @@ app.use((req, res, next) => {
   logger.info(`Received ${req.method} request to ${req.url}`)
   next()
 })
+
+app.use((req, res, next) => {
+  rateLimiter
+    .consume(String(req.ip))
+    .then(() => next())
+    .catch(() => {
+      logger.warn(`Rate limit exceeded for IP: ${req.ip}`)
+      res.status(429).send(new ResponseFailure('Too many requests'))
+    })
+})
+app.use('/api/auth/register', sensitiveRateLimiter)
+
 app.use('/api', router)
 app.get('/', (req, res) => {
-  // logger.info(req.session.user)
   res.json(new ApiResponse('Server is up'))
 })
 
