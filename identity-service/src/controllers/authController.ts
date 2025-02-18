@@ -1,7 +1,7 @@
 import User from '../models/User'
 import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
-import { validateRegistration } from '../utils/validation'
+import { validateLogin, validateRegistration } from '../utils/validation'
 import asyncHandler from '../utils/asyncHandler'
 
 export const registerUser = asyncHandler(async (req, _) => {
@@ -11,7 +11,11 @@ export const registerUser = asyncHandler(async (req, _) => {
   if (error) {
     throw new ApiError(error.details[0].message)
   }
-  let user = new User({
+  let user = await User.findByUsernameOrEmail(username, email)
+  if (user) {
+    throw new ApiError('User already exists')
+  }
+  user = new User({
     username,
     email,
     password
@@ -24,8 +28,54 @@ export const registerUser = asyncHandler(async (req, _) => {
   user = await user.save()
 
   return new ResponseSuccess(
-    'Sign up successful',
+    'Register successful',
     { user: user.toJSON(), accessToken, refreshToken },
     201
   )
+})
+
+export const loginUser = asyncHandler(async (req, _) => {
+  const { usernameOrEmail, password } = req.body
+
+  const { error } = validateLogin({ usernameOrEmail, password })
+  if (error) {
+    throw new ApiError(error.details[0].message)
+  }
+  let user = await User.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+
+  if (!user || !(await user.comparePassword(password))) {
+    throw new ApiError('Invalid credentials')
+  }
+
+  const accessToken = user.generateAccessToken()
+  const refreshToken = user.generateRefreshToken()
+
+  user.refreshToken = refreshToken
+
+  user = await user.save()
+
+  return new ResponseSuccess(
+    'Login successful',
+    { user: user.toJSON(), accessToken, refreshToken },
+    201
+  )
+})
+
+export const logoutUser = asyncHandler(async (req, _) => {
+  const { refreshToken } = req.body
+
+  if (!refreshToken) {
+    throw new ApiError('Refresh token missing')
+  }
+  // let user = await User.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+
+  // if (!user || !(await user.comparePassword(password))) {
+  //   throw new ApiError('Invalid credentials')
+  // }
+
+  // user.refreshToken = refreshToken
+
+  // user = await user.save()
+
+  return new ResponseSuccess('Logout successful', 201)
 })

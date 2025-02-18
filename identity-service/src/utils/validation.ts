@@ -16,3 +16,17 @@ export const validateRegistration = ({
   })
   return schema.validate({ username, email, password })
 }
+
+export const validateLogin = ({
+  usernameOrEmail,
+  password
+}: {
+  usernameOrEmail: string
+  password: string
+}) => {
+  const schema = Joi.object({
+    usernameOrEmail: Joi.string().min(3).max(50).required(),
+    password: Joi.string().min(6).max(30).required()
+  })
+  return schema.validate({ usernameOrEmail, password })
+}

@@ -8,10 +8,13 @@ import {
 } from '../utils/authUtil'
 
 interface UserModel extends Model<IUser, object, IUserMethods> {
-  findByEmail(name: string): Promise<HydratedDocument<IUser, IUserMethods>>
-  findByEmail(name: string): Promise<HydratedDocument<IUser, IUserMethods>>
+  findByUsername(
+    username: string
+  ): Promise<HydratedDocument<IUser, IUserMethods>>
+  findByEmail(email: string): Promise<HydratedDocument<IUser, IUserMethods>>
   findByUsernameOrEmail(
-    name: string
+    username: string,
+    email: string
   ): Promise<HydratedDocument<IUser, IUserMethods>>
 }
 
@@ -57,9 +60,9 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
       findByEmail(email) {
         return this.findOne({ email })
       },
-      findByUsernameOrEmail(usernameOrEmail) {
+      findByUsernameOrEmail(username, email) {
         return this.findOne({
-          $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
+          $or: [{ email }, { username }]
         })
       }
     }
@@ -67,7 +70,7 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
 )
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+  if (this.isModified('password')) {
     try {
       if (this.password.length < 4) {
         throw new Error('Password must contain at least 4 characters')
