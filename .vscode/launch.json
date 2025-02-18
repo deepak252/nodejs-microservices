@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "API Gateway: Attach to Node",
+      "port": 9220,
+      "address": "localhost",
+      "restart": false, // 🔄 `restart` is not needed for "attach" mode
+      "localRoot": "${workspaceFolder}/api-gateway",
+      // "remoteRoot": "/app", // 🔄 If debugging inside Docker, set the remote root
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/api-gateway/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Identity Service: Attach to Node",
+      "port": 9221,
+      "address": "localhost",
+      "restart": false,
+      "localRoot": "${workspaceFolder}/identity-service",
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/identity-service/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Identity Service Docker: Attach to Node",
+      "port": 9221,
+      "address": "localhost",
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
