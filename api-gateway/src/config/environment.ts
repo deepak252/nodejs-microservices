@@ -9,5 +9,5 @@ export const {
   MONGO_URI,
   REDIS_PORT = '6379',
   REDIS_PASSWORD = '',
-  CLIENT_URL = ''
+  IDENTITY_SERVICE_URL = ''
 } = process.env

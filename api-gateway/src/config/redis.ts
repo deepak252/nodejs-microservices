@@ -1,18 +1,19 @@
 import { Redis } from 'ioredis'
 import { REDIS_URL } from './environment.js'
+import logger from '../utils/logger.js'
 
 const redisClient = new Redis(REDIS_URL)
 
 redisClient.on('connect', () => {
-  console.log('Connected to Redis!')
+  logger.info('Connected to Redis!')
 })
 
 redisClient.on('error', (err) => {
-  console.error('Redis connection error:', err)
+  logger.error(`Redis connection error: ${err.message}`)
 })
 
 redisClient.on('close', () => {
-  console.error('Redis connection closed')
+  logger.info('Redis connection closed')
 })
 
 export { redisClient }
