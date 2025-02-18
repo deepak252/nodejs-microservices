@@ -29,6 +29,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-http-proxy": "^1.6.6",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.4",
     "@types/winston": "^2.4.4",
     "eslint": "^9.20.1",
