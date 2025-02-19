@@ -13,7 +13,7 @@ connectDB()
     })
   })
   .catch((err) => {
-    logger.error('ERROR Starting Identity Service', err)
+    logger.error(`ERROR Starting Identity Service - ${err}`)
     process.exit(1)
   })
 
