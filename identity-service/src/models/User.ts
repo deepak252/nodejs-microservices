@@ -90,7 +90,7 @@ userSchema.methods.comparePassword = async function (
 
 userSchema.methods.generateAccessToken = function () {
   return generateAccessToken({
-    _id: this._id.toString(),
+    userId: this._id.toString(),
     email: this.email,
     username: this.username
   })
@@ -98,7 +98,7 @@ userSchema.methods.generateAccessToken = function () {
 
 userSchema.methods.generateRefreshToken = function () {
   return generateRefreshToken({
-    _id: this._id.toString()
+    userId: this._id.toString()
   })
 }
 

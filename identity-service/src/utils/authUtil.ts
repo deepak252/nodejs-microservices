@@ -8,7 +8,7 @@ import {
 } from '../config/environment.js'
 
 type JWTPayload = {
-  _id: string
+  userId: string
   username: string
   email: string
   fullName?: string
@@ -17,8 +17,12 @@ type JWTPayload = {
 /**
  * @returns JWT Access token
  */
-export const generateAccessToken = ({ _id, username, email }: JWTPayload) => {
-  return jwt.sign({ _id, username, email }, ACCESS_TOKEN_SECRET, {
+export const generateAccessToken = ({
+  userId,
+  username,
+  email
+}: JWTPayload) => {
+  return jwt.sign({ userId, username, email }, ACCESS_TOKEN_SECRET, {
     expiresIn: ACCESS_TOKEN_EXPIRY
   } as SignOptions)
 }
@@ -26,8 +30,8 @@ export const generateAccessToken = ({ _id, username, email }: JWTPayload) => {
 /**
  * @returns JWT Refresh token
  */
-export const generateRefreshToken = ({ _id }: { _id: string }) => {
-  return jwt.sign({ _id }, REFRESH_TOKEN_SECRET, {
+export const generateRefreshToken = ({ userId }: { userId: string }) => {
+  return jwt.sign({ userId }, REFRESH_TOKEN_SECRET, {
     expiresIn: REFRESH_TOKEN_EXPIRY
   } as SignOptions)
 }
