@@ -12,8 +12,8 @@ const router = Router()
 router.use(authenticateRequest)
 
 router.post('/create', createPost)
-router.get('/all', getAllPosts)
+router.get('/', getAllPosts)
 router.get('/:postId', getPost)
-router.delete('/delete', deletePost)
+router.delete('/:postId', deletePost)
 
 export default router
