@@ -9,11 +9,11 @@ connectDB()
     const httpServer = createServer(app)
 
     httpServer.listen(SERVER_PORT, () => {
-      logger.info(`Server is running on port : ${SERVER_PORT}`)
+      logger.info(`Identity Service is running on port : ${SERVER_PORT}`)
     })
   })
   .catch((err) => {
-    logger.error('ERROR Starting Server', err)
+    logger.error('ERROR Starting Identity Service', err)
     process.exit(1)
   })
 
