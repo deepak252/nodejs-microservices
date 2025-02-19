@@ -33,8 +33,8 @@ if (NODE_ENV !== 'production') {
       format: winston.format.combine(
         winston.format.colorize(), // Colorized output in console
         winston.format.simple(), // Human-readable format
-        winston.format.printf(({ level, message, timestamp, ms }) => {
-          return `${timestamp} [${level}]: ${message} ${ms ? `(${ms})` : ''}`
+        winston.format.printf(({ level, message, timestamp, ms, stack }) => {
+          return `${timestamp} [${level}]: ${message} ${ms ? `(${ms})` : ''} ${stack ? `\n${stack}` : ''}`
         })
       )
     })

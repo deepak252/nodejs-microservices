@@ -14,6 +14,6 @@ export const errorHandler = (
   const message = err.message || 'Internal Server Error'
   const stack = NODE_ENV === 'production' ? undefined : err.stack
 
-  logger.error(err.stack)
+  logger.error(err)
   res.status(statusCode).json(new ResponseFailure(message, statusCode, stack))
 }

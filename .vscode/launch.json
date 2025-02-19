@@ -34,6 +34,17 @@
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/app",
       "skipFiles": ["<node_internals>/**"]
-    }
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Post Service: Attach to Node",
+      "port": 9222,
+      "address": "localhost",
+      "restart": false,
+      "localRoot": "${workspaceFolder}/post-service",
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/identity-service/**/*.js"]
+    },
   ]
 }
