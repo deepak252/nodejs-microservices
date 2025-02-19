@@ -3,12 +3,10 @@ dotenv.config()
 
 export const {
   NODE_ENV = 'development',
-  REDIS_URL = '',
   SERVER_PORT = 3002,
-  COOKIE_SECRET = 'SECRET',
-  MONGO_URI,
-  REDIS_URI = 'redis',
+  REDIS_URL = 'redis://localhost:6379',
   REDIS_PORT = '6379',
   REDIS_PASSWORD = '',
-  CLIENT_URL = ''
+  MONGO_URI = '',
+  ACCESS_TOKEN_SECRET = 'STOREDEVACESSSECRETJWT12349876'
 } = process.env
