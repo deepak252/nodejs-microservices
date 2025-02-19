@@ -6,7 +6,7 @@ import logger from './utils/logger.js'
 const httpServer = createServer(app)
 
 httpServer.listen(SERVER_PORT, () => {
-  logger.info(`Server is running on port : ${SERVER_PORT}`)
+  logger.info(`API Gateway is running on port : ${SERVER_PORT}`)
 })
 
 process.on('unhandledRejection', (reason, promise) => {
