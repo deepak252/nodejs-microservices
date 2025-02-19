@@ -2,31 +2,43 @@ import winston from 'winston'
 import { NODE_ENV } from '../config/environment'
 
 const logger = winston.createLogger({
-  level: NODE_ENV === 'production' ? 'info' : 'debug',
-  // format the messages
+  level: 'info', // Default log level
   format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.errors({ stack: true }),
-    winston.format.splat(), // enable message templating
-    winston.format.json() // log messages in json
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Add timestamp
+    winston.format.ms(), // Adds execution time (ms)
+    winston.format.splat(), // Enable string templating
+    winston.format.errors({ stack: true }), // Capture stack traces for errors
+    winston.format.json() // Use JSON format for structured logging
   ),
-  defaultMeta: { service: 'api-gateway' },
-  // output destination of logs, eg. console, file
   transports: [
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
-    }),
+    // Error logs
     new winston.transports.File({
       filename: 'error.log',
-      level: 'error'
+      level: 'error',
+      format: winston.format.json()
     }),
+
+    // All logs (info, warn, error)
     new winston.transports.File({
-      filename: 'combined.log'
+      filename: 'combined.log',
+      format: winston.format.json()
     })
   ]
 })
+
+// Add Console Logging in Development Mode
+if (NODE_ENV !== 'production') {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(), // Colorized output in console
+        winston.format.simple(), // Human-readable format
+        winston.format.printf(({ level, message, timestamp, ms }) => {
+          return `${timestamp} [${level}]: ${message} ${ms ? `(${ms})` : ''}`
+        })
+      )
+    })
+  )
+}
 
 export default logger
