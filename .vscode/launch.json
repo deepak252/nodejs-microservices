@@ -44,7 +44,7 @@
       "restart": false,
       "localRoot": "${workspaceFolder}/post-service",
       "skipFiles": ["<node_internals>/**"],
-      "outFiles": ["${workspaceFolder}/identity-service/**/*.js"]
-    },
+      "outFiles": ["${workspaceFolder}/post-service/**/*.js"]
+    }
   ]
 }
