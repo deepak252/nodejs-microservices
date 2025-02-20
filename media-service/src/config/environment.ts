@@ -1,0 +1,12 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
+export const {
+  NODE_ENV = 'development',
+  SERVER_PORT = 3003,
+  REDIS_URL = 'redis://localhost:6379',
+  REDIS_PORT = '6379',
+  REDIS_PASSWORD = '',
+  MONGO_URI = '',
+  ACCESS_TOKEN_SECRET = 'STOREDEVACESSSECRETJWT12349876'
+} = process.env
