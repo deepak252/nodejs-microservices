@@ -88,9 +88,12 @@ app.use(
   validateAccessToken,
   proxy(MEDIA_SERVICE_URL, {
     ...proxyOptions,
+    parseReqBody: false, // Important for multipart forms
     proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
-      proxyReqOpts.headers!['content-type'] = 'application/json'
       proxyReqOpts.headers!['x-user-id'] = srcReq.user.userId
+      if (!srcReq.headers!['content-type']?.startsWith('multipart/form-data')) {
+        proxyReqOpts.headers!['content-type'] = 'application/json'
+      }
       return proxyReqOpts
     },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {

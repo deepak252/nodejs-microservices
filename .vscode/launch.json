@@ -7,7 +7,7 @@
       "name": "API Gateway: Attach to Node",
       "port": 9220,
       "address": "localhost",
-      "restart": false, // 🔄 `restart` is not needed for "attach" mode
+      "restart": true, // 🔄 `restart` is not needed for "attach" mode
       "localRoot": "${workspaceFolder}/api-gateway",
       // "remoteRoot": "/app", // 🔄 If debugging inside Docker, set the remote root
       "skipFiles": ["<node_internals>/**"],
@@ -19,7 +19,7 @@
       "name": "Identity Service: Attach to Node",
       "port": 9221,
       "address": "localhost",
-      "restart": false,
+      "restart": true,
       "localRoot": "${workspaceFolder}/identity-service",
       "skipFiles": ["<node_internals>/**"],
       "outFiles": ["${workspaceFolder}/identity-service/**/*.js"]
@@ -41,7 +41,7 @@
       "name": "Post Service: Attach to Node",
       "port": 9222,
       "address": "localhost",
-      "restart": false,
+      "restart": true,
       "localRoot": "${workspaceFolder}/post-service",
       "skipFiles": ["<node_internals>/**"],
       "outFiles": ["${workspaceFolder}/post-service/**/*.js"]
@@ -52,7 +52,7 @@
       "name": "Media Service: Attach to Node",
       "port": 9223,
       "address": "localhost",
-      "restart": false,
+      "restart": true,
       "localRoot": "${workspaceFolder}/media-service",
       "skipFiles": ["<node_internals>/**"],
       "outFiles": ["${workspaceFolder}/media-service/**/*.js"]
