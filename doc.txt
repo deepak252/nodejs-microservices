@@ -12,3 +12,17 @@ Naming Conventions:
 3. npm i cors dotenv express express-rate-limit helmet ioredis jsonwebtoken winston mongoose rate-limit-redis bcryptjs
 
 4. npm i -D @types/express @types/winston
+
+
+
+Supabase S3
+1. AWS CLI Login
+    > aws configure
+        // Add credentials
+    > cat ~/.aws/credentials
+    > aws s3 ls --endpoint-url=<ENDPOINT>       {List all the buckets}
+    
+    > aws s3 mb s3://posts --endpoint-url=<ENDPOINT>     {/*Make Bucket "posts"*/}
+    > aws s3 cp ~/Pictures/pic1.png s3://posts --endpoint-url=<ENDPOINT>     {Upload file from local dir to s3 bucket}
+    > aws s3 ls s3://posts --endpoint-url=<ENDPOINT>     {List all files in s3 bucket}
+    > aws s3 sync ~/Pictures s3://posts --endpoint-url=<ENDPOINT>     {Upload all files from local Pictures dir to s3 bucket}

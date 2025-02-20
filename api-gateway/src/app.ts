@@ -8,7 +8,11 @@ import { errorHandler } from './middlewares/errorHandler.js'
 import logger from './utils/logger.js'
 import { rateLimiter } from './middlewares/rateLimiter.js'
 import proxy, { ProxyOptions } from 'express-http-proxy'
-import { IDENTITY_SERVICE_URL, POST_SERVICE_URL } from './config/environment.js'
+import {
+  IDENTITY_SERVICE_URL,
+  MEDIA_SERVICE_URL,
+  POST_SERVICE_URL
+} from './config/environment.js'
 import { validateAccessToken } from './middlewares/authMiddleware.js'
 
 const app = express()
@@ -73,6 +77,26 @@ app.use(
     },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
       logger.info(`Response received from post-service: ${proxyRes.statusCode}`)
+      return proxyResData
+    }
+  })
+)
+
+// Setting up proxy for media service
+app.use(
+  '/v1/media',
+  validateAccessToken,
+  proxy(MEDIA_SERVICE_URL, {
+    ...proxyOptions,
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      proxyReqOpts.headers!['content-type'] = 'application/json'
+      proxyReqOpts.headers!['x-user-id'] = srcReq.user.userId
+      return proxyReqOpts
+    },
+    userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+      logger.info(
+        `Response received from media-service: ${proxyRes.statusCode}`
+      )
       return proxyResData
     }
   })
