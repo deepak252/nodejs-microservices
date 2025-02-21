@@ -6,7 +6,10 @@ import {
   S3_URL
 } from './environment'
 
+// console.log(AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_REGION, S3_URL)
+
 export const s3Client = new S3Client({
+  forcePathStyle: true, // Required for Supabase
   region: S3_REGION,
   endpoint: S3_URL,
   credentials: {

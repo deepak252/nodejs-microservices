@@ -1,8 +1,9 @@
-import Media from '../models/Media'
+import fs from 'fs'
+import { S3Service } from '../services/S3Service'
 import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
 import asyncHandler from '../utils/asyncHandler'
-import logger from '../utils/logger'
+import Media from '../models/Media'
 
 // {
 //   "fieldname": "file",
@@ -16,18 +17,35 @@ import logger from '../utils/logger'
 // }
 
 export const uploadMedia = asyncHandler(async (req, _) => {
-  if (!req.file) {
-    throw new ApiError('No file found')
+  try {
+    if (!req.file) {
+      throw new ApiError('No file found')
+    }
+    const s3Service = new S3Service('uploads')
+
+    const result = await s3Service.uploadToS3(req.file)
+
+    if (!result) {
+      throw new ApiError('Unable to upload file')
+    }
+
+    const media = new Media({
+      publicId: result?.key,
+      originalName: req.file.originalname,
+      user: req.user.userId,
+      url: result?.location
+    })
+
+    await media.save()
+
+    return new ResponseSuccess(
+      'File uploaded successfully',
+      media.toJSON(),
+      201
+    )
+  } finally {
+    if (req.file) {
+      fs.unlinkSync(req.file.path)
+    }
   }
-  const { originalname, mimetype } = req.file
-  const userId = req.user.userId
-
-  const media = new Media({
-    publicId: '',
-    originalName: originalname,
-    user: userId,
-    url: ''
-  })
-
-  return new ResponseSuccess('File uploaded successfully')
 })

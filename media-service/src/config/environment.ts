@@ -12,5 +12,7 @@ export const {
   S3_URL = '',
   S3_REGION = '',
   AWS_ACCESS_KEY = '',
-  AWS_SECRET_KEY = ''
+  AWS_SECRET_KEY = '',
+  POSTS_S3_BUCKET = 'posts',
+  SUPABASE_PROJECT_URL
 } = process.env
