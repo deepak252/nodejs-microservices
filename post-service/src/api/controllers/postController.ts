@@ -7,7 +7,7 @@ import asyncHandler from '../utils/asyncHandler'
 export const createPost = asyncHandler(async (req, _) => {
   const { content = '', mediaIds = [] } = req.body
 
-  const { error } = validateCreatePost({ content })
+  const { error } = validateCreatePost({ content, mediaIds })
   if (error) {
     throw new ApiError(error.details[0].message)
   }
