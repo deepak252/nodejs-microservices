@@ -2,7 +2,7 @@ import fs from 'fs'
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import { s3Client } from '../config/s3Client'
-import { SUPABASE_PROJECT_URL } from '../config/environment'
+import { SUPABASE_PROJECT_URL } from '../config/env'
 import logger from '../utils/logger'
 
 type S3UploadSuccess = {

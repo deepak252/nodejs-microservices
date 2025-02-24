@@ -1,9 +1,9 @@
 import fs from 'fs'
-import { S3Service } from '../services/S3Service'
+import { S3Service } from '../../services/S3Service'
 import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
 import asyncHandler from '../utils/asyncHandler'
-import Media from '../models/Media'
+import Media from '../../models/Media'
 
 // {
 //   "fieldname": "file",
@@ -33,6 +33,7 @@ export const uploadMedia = asyncHandler(async (req, _) => {
       publicId: result?.key,
       originalName: req.file.originalname,
       user: req.user.userId,
+      mimeType: req.file.mimetype,
       url: result?.location
     })
 

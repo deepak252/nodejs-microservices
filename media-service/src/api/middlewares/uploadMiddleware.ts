@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express'
 import multer from 'multer'
 import fs from 'fs'
 import path from 'path'
-import { removeFile } from '../utils/fileUtil'
-import logger from '../utils/logger'
+import { removeFile } from '../../utils/fileUtil'
 import { ApiError } from '../utils/ApiError'
+import logger from '../../utils/logger'
 
 const destPath = 'uploads/'
 

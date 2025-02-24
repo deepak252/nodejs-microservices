@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { NODE_ENV } from '../config/environment'
+import { NODE_ENV } from '../config/env'
 
 const logger = winston.createLogger({
   level: 'info', // Default log level

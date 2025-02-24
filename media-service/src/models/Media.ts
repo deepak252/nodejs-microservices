@@ -19,6 +19,10 @@ const mediaSchema = new Schema<IMedia, MediaModel, IMediaMethods>(
       type: String,
       required: true
     },
+    mimeType: {
+      type: String,
+      required: true
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
