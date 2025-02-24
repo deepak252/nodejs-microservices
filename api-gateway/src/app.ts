@@ -3,7 +3,7 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
-import { ApiResponse, ResponseFailure } from './utils/ApiResponse.js'
+import { ResponseFailure, ResponseSuccess } from './utils/ApiResponse.js'
 import { errorHandler } from './middlewares/errorHandler.js'
 import logger from './utils/logger.js'
 import { rateLimiter } from './middlewares/rateLimiter.js'
@@ -37,7 +37,7 @@ const proxyOptions: ProxyOptions = {
     return req.originalUrl.replace(/^\/v1/, '/api')
   },
   proxyErrorHandler: function (err, res, next) {
-    logger.error(`Proxy error: ${err.message}`)
+    logger.error(`Proxy error: `, err)
     res
       .status(500)
       .json(new ResponseFailure(`Internal server error: ${err.message}`))
@@ -106,7 +106,7 @@ app.use(
 )
 
 app.get('/', (req, res) => {
-  res.json(new ApiResponse('API-gateway is up'))
+  res.json(new ResponseSuccess('API Gateway is Up'))
 })
 
 app.use(errorHandler)
