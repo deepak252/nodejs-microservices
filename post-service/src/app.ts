@@ -1,10 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
-import router from './routes/index.js'
+import router from './api/routes/index.js'
 // import { rateLimiter, sensitiveRateLimiter } from './middlewares/rateLimiter.js'
-import { ApiResponse } from './utils/ApiResponse.js'
-import { errorHandler } from './middlewares/errorHandler.js'
+import { errorHandler } from './api/middlewares/errorHandler.js'
 import logger from './utils/logger.js'
 
 const app = express()
@@ -34,9 +33,6 @@ app.use((req, res, next) => {
 // app.use('/api/auth/register', sensitiveRateLimiter)
 
 app.use('/api', router)
-app.get('/', (req, res) => {
-  res.json(new ApiResponse('Post Service is Up'))
-})
 
 app.use(errorHandler)
 

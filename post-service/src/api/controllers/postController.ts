@@ -1,4 +1,4 @@
-import PostService from '../services/PostService'
+import PostService from '../../services/PostService'
 import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
 import { validateCreatePost } from '../utils/validation'
