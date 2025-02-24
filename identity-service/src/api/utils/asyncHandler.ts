@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { ApiResponse, ResponseSuccess } from './ApiResponse.js'
+import { ApiResponse, ResponseSuccess } from './ApiResponse'
 
 const asyncHandler = (
   controller: (req: Request, res: Response) => Promise<ResponseSuccess | any>

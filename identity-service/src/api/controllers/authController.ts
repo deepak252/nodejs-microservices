@@ -1,8 +1,8 @@
-import User from '../models/User'
+import User from '../../models/User'
 import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
-import { validateLogin, validateRegistration } from '../utils/validation'
 import asyncHandler from '../utils/asyncHandler'
+import { validateLogin, validateRegistration } from '../utils/validation'
 
 export const registerUser = asyncHandler(async (req, _) => {
   const { username, email, password } = req.body

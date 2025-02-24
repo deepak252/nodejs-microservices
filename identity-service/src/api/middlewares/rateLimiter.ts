@@ -1,8 +1,8 @@
 import rateLimit from 'express-rate-limit'
 import RedisStore from 'rate-limit-redis' // A redis store for the express-rate-limit middleware.
 import { RateLimiterRedis } from 'rate-limiter-flexible'
-import { redisClient } from '../config/redis'
-import logger from '../utils/logger'
+import { redisClient } from '../../config/redis'
+import logger from '../../utils/logger'
 import { ResponseFailure } from '../utils/ApiResponse'
 
 export const rateLimiter = new RateLimiterRedis({
