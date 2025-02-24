@@ -26,3 +26,12 @@ Supabase S3
     > aws s3 cp ~/Pictures/pic1.png s3://posts --endpoint-url=<ENDPOINT>     {Upload file from local dir to s3 bucket}
     > aws s3 ls s3://posts --endpoint-url=<ENDPOINT>     {List all files in s3 bucket}
     > aws s3 sync ~/Pictures s3://posts --endpoint-url=<ENDPOINT>     {Upload all files from local Pictures dir to s3 bucket}
+
+
+Intall RabbitMQ on MAC
+> brew install rabbitmq
+> brew info rabbitmq        // to show rabbitmq path (/usr/local/Cellar/rabbitmq/3.13.6)
+> brew services info rabbitmq
+> brew services start rabbitmq
+> visit http://localhost:15672/  (u: guest, p: guest)
+> brew services stop rabbitmq
