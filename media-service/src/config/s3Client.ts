@@ -1,8 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3'
 import { AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_REGION, S3_URL } from './env'
 
-// console.log(AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_REGION, S3_URL)
-
 export const s3Client = new S3Client({
   forcePathStyle: true, // Required for Supabase
   region: S3_REGION,

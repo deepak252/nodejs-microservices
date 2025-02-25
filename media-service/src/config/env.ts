@@ -8,6 +8,7 @@ export const {
   REDIS_PORT = '6379',
   REDIS_PASSWORD = '',
   MONGO_URI = '',
+  RABBITMQ_URL = 'amqp://localhost',
   ACCESS_TOKEN_SECRET = 'STOREDEVACESSSECRETJWT12349876',
   S3_URL = '',
   S3_REGION = '',

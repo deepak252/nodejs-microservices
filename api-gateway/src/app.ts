@@ -12,7 +12,7 @@ import {
   IDENTITY_SERVICE_URL,
   MEDIA_SERVICE_URL,
   POST_SERVICE_URL
-} from './config/environment.js'
+} from './config/env.js'
 import { validateAccessToken } from './middlewares/authMiddleware.js'
 
 const app = express()

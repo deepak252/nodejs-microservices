@@ -1,5 +1,7 @@
+import { channel } from '../config/rabbitmq'
 import { redisClient } from '../config/redis'
 import Post from '../models/Post'
+import logger from '../utils/logger'
 
 export default class PostService {
   static invalidatePostCache = async (postId?: string) => {
@@ -73,14 +75,29 @@ export default class PostService {
   }
 
   static deletePost = async (postId: string, userId: string) => {
-    // const post = await Post.findByIdAndDelete(postId)
     const post = await Post.findOneAndDelete({
       _id: postId,
       user: userId
     })
     if (post) {
+      await this.publishDeleteMediaEvent(post.mediaIds)
       await this.invalidatePostCache(postId)
     }
     return post
+  }
+
+  static publishDeleteMediaEvent = async (mediaIds: string[]) => {
+    if (!mediaIds.length) {
+      return
+    }
+    if (!channel) {
+      return
+    }
+    const exchange = 'media.direct'
+    const routingKey = 'media.delete'
+    await channel.assertExchange(exchange, 'direct', { durable: false })
+
+    channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(mediaIds)))
+    logger.info(`Event published: ${routingKey}, ${mediaIds}`)
   }
 }

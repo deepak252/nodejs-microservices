@@ -12,14 +12,14 @@ connectDB()
     connectRabbitMQ()
 
     httpServer.listen(SERVER_PORT, () => {
-      logger.info(`Post Service is running on PORT : ${SERVER_PORT}`)
+      logger.info(`🚀 Post Service is running on PORT : ${SERVER_PORT}`)
     })
   })
   .catch((err) => {
-    logger.error('ERROR Starting Server', err)
+    logger.error('❌ ERROR Starting Server', err)
     process.exit(1)
   })
 
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error(`Unhandled Rejection at ${promise}, reason: ${reason}`)
+  logger.error(`❌ Unhandled Rejection at ${promise}, reason: ${reason}`)
 })

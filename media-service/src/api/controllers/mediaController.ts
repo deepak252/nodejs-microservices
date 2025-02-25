@@ -4,6 +4,7 @@ import { ApiError } from '../utils/ApiError'
 import { ResponseSuccess } from '../utils/ApiResponse'
 import asyncHandler from '../utils/asyncHandler'
 import Media from '../../models/Media'
+import MediaService from '../../services/MediaService'
 
 // {
 //   "fieldname": "file",
@@ -49,4 +50,11 @@ export const uploadMedia = asyncHandler(async (req, _) => {
       fs.unlinkSync(req.file.path)
     }
   }
+})
+
+export const getAllMedia = asyncHandler(async (req, _) => {
+  const { page = 1, limit = 10 } = req.query
+  const result = await MediaService.getAllMedia(Number(page), Number(limit))
+
+  return new ResponseSuccess('Medias fetched successfully', result)
 })

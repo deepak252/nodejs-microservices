@@ -13,25 +13,39 @@ const connectRabbitMQ = async () => {
     connection = await amqp.connect(RABBITMQ_URL)
     channel = await connection.createChannel()
 
-    logger.info('Connected to RabbitMQ')
+    logger.info('✅ Connected to RabbitMQ')
     // close on process exit
 
-    const closeRabbitMQ = async () => {
-      if (connection) {
-        logger.info('❌ Closing RabbitMQ connection...')
-        await connection.close()
-        connection = null
-        channel = null
-        process.exit(0)
-      }
-    }
-    process.on('SIGINT', closeRabbitMQ) // Handles Ctrl + C
-    process.on('SIGTERM', closeRabbitMQ) // Handles kill or docker stop
+    // process.on('SIGINT', closeRabbitMQ) // Handles Ctrl + C
+    // process.on('SIGTERM', closeRabbitMQ) // Handles kill or docker stop
 
     return { channel, connection }
   } catch (e: any) {
-    logger.error('Error connecting to RabbitMQ: ', e)
+    logger.error('❌ Error connecting to RabbitMQ: ', e)
   }
 }
 
-export { connectRabbitMQ }
+// const closeRabbitMQ = async () => {
+//   try {
+//     if (connection) {
+//       logger.info('❌ Closing RabbitMQ connection...')
+//       await connection.close()
+//       connection = null
+//       channel = null
+//     }
+//   } catch (err) {
+//     logger.error('⚠️ Error closing RabbitMQ:', err)
+//   } finally {
+//     process.exit(0) // Ensures clean exit
+//   }
+// }
+
+// const publishEvent = async (exchange: string) => {
+//   try {
+//     await channel?.assertExchange(exchange, )
+//   } catch (err) {
+//     logger.error('⚠️ Error closing RabbitMQ:', err)
+//   }
+// }
+
+export { connectRabbitMQ, channel, connection }

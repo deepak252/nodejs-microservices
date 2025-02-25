@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { ApiError } from '../utils/ApiError'
-import { ACCESS_TOKEN_SECRET } from '../config/environment'
+import { ACCESS_TOKEN_SECRET } from '../config/env'
 
 export const validateAccessToken = async (
   req: Request,

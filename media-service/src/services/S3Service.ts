@@ -63,12 +63,14 @@ export class S3Service {
 
   deleteFromS3 = async (fileKey: string) => {
     try {
-      await s3Client.send(
+      const result = await s3Client.send(
         new DeleteObjectCommand({
           Bucket: this.bucket,
           Key: fileKey
         })
       )
+      logger.info(`Media deleted from S3: ${fileKey}`)
+      return result
     } catch (e) {
       logger.error('Error delete from S3', e)
     }
