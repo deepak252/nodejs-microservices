@@ -80,13 +80,27 @@ export default class PostService {
       user: userId
     })
     if (post) {
-      await this.publishDeleteMediaEvent(post.mediaIds)
+      if (post.mediaIds.length) {
+        await this.publishDeleteMediaEvent({
+          postId,
+          userId,
+          mediaIds: post.mediaIds
+        })
+      }
       await this.invalidatePostCache(postId)
     }
     return post
   }
 
-  static publishDeleteMediaEvent = async (mediaIds: string[]) => {
+  static publishDeleteMediaEvent = async ({
+    postId,
+    userId,
+    mediaIds
+  }: {
+    postId: string
+    userId: string
+    mediaIds: string[]
+  }) => {
     if (!mediaIds.length) {
       return
     }
@@ -97,7 +111,17 @@ export default class PostService {
     const routingKey = 'media.delete'
     await channel.assertExchange(exchange, 'direct', { durable: false })
 
-    channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(mediaIds)))
+    channel.publish(
+      exchange,
+      routingKey,
+      Buffer.from(
+        JSON.stringify({
+          postId,
+          userId,
+          mediaIds
+        })
+      )
+    )
     logger.info(`Event published: ${routingKey}, ${mediaIds}`)
   }
 }

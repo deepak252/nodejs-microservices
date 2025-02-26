@@ -18,7 +18,9 @@ export const deleteMediaWorker = async () => {
   channel.consume(queue, (msg) => {
     if (msg?.content) {
       const content = JSON.parse(msg.content.toString())
-      MediaService.deleteMultipleMedia(content)
+      if (content.postId) {
+        MediaService.deleteMultipleMedia(content.mediaIds)
+      }
       logger.info(`Event recieved: ${routingKey}, ${content}`)
       channel?.ack(msg)
     }
