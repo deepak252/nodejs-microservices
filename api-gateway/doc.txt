@@ -1,0 +1,8 @@
+Start Service:
+
+Using Dockerfile - 
+> docker build -t nodejs-api-gateway .
+> docker run --env-file .env -p 3000:3000 nodejs-api-gateway
+
+Using Compose - 
+> docker compose up

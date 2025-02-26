@@ -12,3 +12,5 @@ COPY . .
 EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
+
+# TODO: Multi stage build
