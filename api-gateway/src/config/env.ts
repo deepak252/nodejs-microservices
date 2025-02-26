@@ -5,6 +5,7 @@ export const {
   NODE_ENV = 'development',
   SERVER_PORT = 3000,
   REDIS_URL = 'redis://localhost:6379',
+  REDIS_HOST = 'localhost',
   REDIS_PORT = '6379',
   REDIS_PASSWORD = '',
   IDENTITY_SERVICE_URL = 'http://localhost:3001',
